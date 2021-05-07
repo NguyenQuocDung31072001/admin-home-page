@@ -9,11 +9,14 @@ function App() {
        <Router>        
            <Switch>
              <Route  path='/home' render={()=>{
-               return (localStorage.getItem('email') &&localStorage.getItem('user')!==null && localStorage.getItem('pass')!==null)?<Home/>:<Redirect to='/login'></Redirect>
+               return (localStorage.getItem('email')!==null &&localStorage.getItem('user')!==null && localStorage.getItem('pass')!==null)?<Home/>:<Redirect to='/login'></Redirect>
+             }}></Route>
+              <Route exact path='/' render={()=>{
+               return (localStorage.getItem('email')!==null &&localStorage.getItem('user')!==null && localStorage.getItem('pass')!==null)?<Home/>:<Redirect to='/login'></Redirect>
              }}></Route>
 
               <Route path='/login' render={()=>{
-               return (localStorage.getItem('email')&&localStorage.getItem('user')!==null && localStorage.getItem('pass')!==null)?<Redirect to='/home'></Redirect>:<LoginFunction/>
+               return (localStorage.getItem('email')!==null &&localStorage.getItem('user')!==null && localStorage.getItem('pass')!==null)?<Redirect to='/home'></Redirect>:<LoginFunction/>
              }}></Route>
 
               <Route component={NotFound}></Route>
