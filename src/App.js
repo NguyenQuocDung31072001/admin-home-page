@@ -14,14 +14,11 @@ function App() {
               <Route exact path='/' render={()=>{
                return (localStorage.getItem('email')!==null &&localStorage.getItem('user')!==null && localStorage.getItem('pass')!==null)?<ContainedButtonsHome/>:<Redirect to='/login'></Redirect>
              }}></Route>
-
               <Route path='/login' render={()=>{
                return (localStorage.getItem('email')!==null &&localStorage.getItem('user')!==null && localStorage.getItem('pass')!==null)?<Redirect to='/home'></Redirect>:<ContainedButtons/>
              }}></Route>
-
               <Route component={NotFound}></Route>
-           </Switch>
-         
+           </Switch>     
        </Router>
     </div>
   );

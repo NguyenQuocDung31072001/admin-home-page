@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import CustomizedTables from './products/table-material'
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <CustomizedTables />
   </React.StrictMode>,
   document.getElementById('root')
 );
