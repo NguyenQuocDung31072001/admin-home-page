@@ -1,0 +1,16 @@
+.content{
+    padding: 70px 50px 100px 50px;
+ }
+ #button-themsp{
+    margin: 10px;
+    background-color: rgb(245, 66, 111);
+}
+#appbar-product{
+    width: 25%;;
+    background-color: rgb(89, 106, 201);
+   
+}
+button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.sua-xoa.MuiButton-containedPrimary {
+    margin-left: 15px;
+    background-color: rgb(216, 117, 51);
+}

@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import CustomizedTables from './products/table-material'
+import AdminHome from './config-product/admin-home-page'
 ReactDOM.render(
   <React.StrictMode>
-    <CustomizedTables />
+    <AdminHome/>
   </React.StrictMode>,
   document.getElementById('root')
 );
