@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import './content.css';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+// import axios from 'axios'
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -30,8 +31,8 @@ const StyledTableCell = withStyles((theme) => ({
     },
   }))(TableRow);
   
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
+  function createData(stt, maSP, name, price, status) {
+    return { stt,maSP, name, price, status };
   }
   
   const rows = [
@@ -53,6 +54,26 @@ const StyledTableCell = withStyles((theme) => ({
     },
   });
 export default function Content(){
+  // const [rows,setRows]=useState([]);
+  // useEffect(()=>{
+  //   axios({
+  //     method:'GET',
+  //     url:'https://60966e92116f3f00174b316b.mockapi.io/products',
+  //     data:null
+  //   }).then(res=>{
+      
+  //     res.data.map((value)=>{
+  //       console.log(value);
+  //       return(
+  //         rows.push(createData(value.stt,value.maSP,value.name,value.price,value.status))
+  //       )
+  //         // setRows(rows.push(createData(value.stt,value.maSP,value.name,value.price,value.status)))
+      
+  //     })
+  //   }).catch(err=>{
+  //     console.log(err)
+  //   });
+  // });
     const classes = useStyles();
     return(
         <div className='content'>       
@@ -79,14 +100,14 @@ export default function Content(){
                     </TableRow>
                   </TableHead>
 
-                  <TableBody>
+                  <TableBody >
                     {rows.map((row) => (
-                        <StyledTableRow key={row.name}>
-                            <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
-                            <StyledTableCell>{row.calories}</StyledTableCell>
-                            <StyledTableCell>{row.fat}</StyledTableCell>
-                            <StyledTableCell>{row.carbs}</StyledTableCell>
-                            <StyledTableCell>{row.protein}</StyledTableCell>
+                        <StyledTableRow key={row.stt}>
+                            <StyledTableCell component="th" scope="row">{row.stt}</StyledTableCell>
+                            <StyledTableCell>{row.maSP}</StyledTableCell>
+                            <StyledTableCell>{row.name}</StyledTableCell>
+                            <StyledTableCell>{row.price}</StyledTableCell>
+                            <StyledTableCell>{row.status}</StyledTableCell>
                             <Button className='sua-xoa' variant="contained" color="primary">Sửa</Button>
                             <Button className='sua-xoa' variant="contained" color="primary">xóa</Button>
                         </StyledTableRow>

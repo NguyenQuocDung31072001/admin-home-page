@@ -1,3 +1,4 @@
+import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -7,7 +8,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import {makeStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles';
-// import './table-material.css';
 import './header.css'
 const useStylesAppBar = makeStyles((theme) => ({
     root: {
