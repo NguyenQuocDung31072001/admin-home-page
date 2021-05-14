@@ -45,18 +45,19 @@ export default function Content(){
     useEffect(()=>{
       axios({
         method:'GET',
-        url:'https://60966e92116f3f00174b316b.mockapi.io/products',
+        url:'http://localhost:4000/account/accounts',
         data:null
       }).then(res=>{
-        console.log(rows);
+
         setRows(res.data);
         
       }).catch(err=>{
         console.log(err)
       });
     },[]);
-    console.log(rows);
+
     const classes = useStyles();
+    let identified=1;
     return(
         <div className='content'>       
             <Button id='button-themsp' variant="contained" color="primary">
@@ -73,29 +74,36 @@ export default function Content(){
                 <Table className={classes.table} aria-label="customized table">
                   <TableHead>
                     <TableRow>
-                        <StyledTableCell>STT</StyledTableCell>
-                        <StyledTableCell >Mã</StyledTableCell>
-                        <StyledTableCell >Tên sản phẩm</StyledTableCell>
-                        <StyledTableCell >Giá</StyledTableCell>
-                        <StyledTableCell >Trạng thái</StyledTableCell>
-                        <StyledTableCell >Hành động</StyledTableCell>
+                        <StyledTableCell>_id</StyledTableCell>
+                        <StyledTableCell >username</StyledTableCell>
+                        <StyledTableCell >password</StyledTableCell>
+                        <StyledTableCell >email</StyledTableCell>
+                        <StyledTableCell >__v</StyledTableCell>
+                        <StyledTableCell >address</StyledTableCell>
+                        <StyledTableCell >name</StyledTableCell>
+                        <StyledTableCell >phone</StyledTableCell>
                     </TableRow>
                   </TableHead>
 
                   <TableBody >
                     {rows.map((row) => (
-                        <StyledTableRow key={parseInt(row.stt)}>
-                            <StyledTableCell component="th" scope="row">{row.stt}</StyledTableCell>
+                        <StyledTableRow key={identified}>
+                            <StyledTableCell component="th" scope="row">{row._id}</StyledTableCell>
  
-                            <StyledTableCell>{row.masp}</StyledTableCell>
+                            <StyledTableCell>{row.username}</StyledTableCell>
                             
-                            <StyledTableCell>{row.name}</StyledTableCell>
-                            <StyledTableCell>{row.gia}</StyledTableCell>
+                            <StyledTableCell>{row.password}</StyledTableCell>
+                            <StyledTableCell>{row.email}</StyledTableCell>
                   
-                            <StyledTableCell>{row.status}</StyledTableCell>
-                            <Button className='sua-xoa' variant="contained" color="primary">Sửa</Button>
-                            <Button className='sua-xoa' variant="contained" color="primary">xóa</Button>
+                            <StyledTableCell>{row.__v}</StyledTableCell>
+                            {/* <Button className='sua-xoa' variant="contained" color="primary">Sửa</Button>
+                            <Button className='sua-xoa' variant="contained" color="primary">xóa</Button> */}
+                            <StyledTableCell>{row.address}</StyledTableCell>
+                            <StyledTableCell>{row.name}</StyledTableCell>
+                            <StyledTableCell>{row.phone}</StyledTableCell>
+                            {identified =identified+1}
                         </StyledTableRow>
+                        
                         ))}
                   </TableBody>
                 </Table>
