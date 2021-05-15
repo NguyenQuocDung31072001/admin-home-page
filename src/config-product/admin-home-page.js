@@ -6,9 +6,9 @@ import Content from './content/content.js'
 export default function AdminHome(){
     return (
         <div>   
-            <Header/>
+            {/* <Header/> */}
             <Content/>
-            <Footer/>
+            {/* <Footer/> */}
         </div>
     )
 }
