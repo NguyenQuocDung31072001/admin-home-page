@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import AdminHome from './config-product/admin-home-page'
+import Render from './render'
 ReactDOM.render(
   <React.StrictMode>
-    <AdminHome/>
+    <Render/>
   </React.StrictMode>,
   document.getElementById('root')
 );

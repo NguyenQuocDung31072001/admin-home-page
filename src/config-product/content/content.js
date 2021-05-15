@@ -13,6 +13,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import axios from 'axios'
 
+import {useHistory} from 'react-router-dom'
 const StyledTableCell = withStyles((theme) => ({
     head: {
       backgroundColor: theme.palette.common.black,
@@ -42,6 +43,10 @@ const StyledTableCell = withStyles((theme) => ({
 export default function Content(){
   
     const [rows,setRows]=useState([]);
+    const history=useHistory();
+    const xemSP=()=>{
+      history.replace('/product')
+    }
     useEffect(()=>{
       axios({
         method:'GET',
@@ -60,13 +65,13 @@ export default function Content(){
     let identified=1;
     return(
         <div className='content'>       
-            <Button id='button-themsp' variant="contained" color="primary">
-                  Thêm sản phẩm
+            <Button id='button-themsp' variant="contained" color="primary" onClick={xemSP}>
+                  Xem sản phẩm
               </Button>
 
              <AppBar id='appbar-product' position="static">
                 <Toolbar>
-                    Danh sách sản phẩm
+                    Account
                 </Toolbar>
               </AppBar>
 
