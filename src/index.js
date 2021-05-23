@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import AdminHome from "./config-product/admin-home-page";
-import App from "./App";
+import MyRoute from "./component/router_test/route"
+import Header from "./component/header/headerProduct"
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <MyRoute />
   </React.StrictMode>,
   document.getElementById("root")
 );

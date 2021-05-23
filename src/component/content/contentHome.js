@@ -8,7 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
-import "./content.css";
+import "./contentHome.css";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import axios from "axios";
@@ -59,7 +59,7 @@ export default function Content() {
   }, []);
 
   const classes = useStyles();
-  let identified = 1;
+  // let identified = 1;
   return (
     <div className="content">
       <Button
@@ -92,10 +92,9 @@ export default function Content() {
 
           <TableBody>
             {rows.map((row) => (
-              <StyledTableRow key={identified}>
-                <StyledTableCell component="th" scope="row">
-                  {row._id}
-                </StyledTableCell>
+              
+              <StyledTableRow >
+                <StyledTableCell >{row._id}</StyledTableCell>
 
                 <StyledTableCell>{row.username}</StyledTableCell>
 
@@ -108,8 +107,9 @@ export default function Content() {
                 <StyledTableCell>{row.address}</StyledTableCell>
                 <StyledTableCell>{row.name}</StyledTableCell>
                 <StyledTableCell>{row.phone}</StyledTableCell>
-                {(identified = identified + 1)}
+                
               </StyledTableRow>
+              
             ))}
           </TableBody>
         </Table>

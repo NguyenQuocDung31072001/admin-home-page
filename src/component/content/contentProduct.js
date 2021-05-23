@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react';
+import React,{useEffect,useState,useContext} from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,11 +8,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import './content.css';
+// import './contentProduct.css';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import axios from 'axios'
 import {useHistory} from 'react-router-dom'
+import CallApi from "../../Api/callApi"
+import {ContextSearch} from "../header/headerProduct"
 const StyledTableCell = withStyles((theme) => ({
     head: {
       backgroundColor: theme.palette.common.black,
@@ -46,38 +47,55 @@ const StyledTableCell = withStyles((theme) => ({
       width:300
     },
     buttonProduct:{
-      backgroundColor:'rgb(245, 66, 111)',
+      
       margin:10
     }
   });
 
-  
-
-export default function ContentProduct(){
+export default function ContentProduct(props){
+    
     const history=useHistory()
     const [rows,setRows]=useState([]);
-    useEffect(()=>{
-      axios({
-        method:'GET',
-        url:'http://localhost:4000/product/all',
-        data:null
-      }).then(res=>{
+    const takeData=useContext(ContextSearch)
+    const [data,setData]=useState("")
 
-        setRows(res.data);
-        
-      }).catch(err=>{
-        console.log(err)
-      });
-    },[]);
+    useEffect(()=>{
+      setData(takeData)
+    },[takeData])
+
+
+    const callApi=()=>{
+      CallApi("/all","GET",null).then(res=>{
+        setRows(res.data)
+      })
+    }
+     useEffect(()=>{
+       if(data !== ""){
+          const name="?name="+data;
+          CallApi(name,"GET",null).then(res=>{
+          setRows(res.data)
+        })
+       }
+      },[data]);
     
-    const xemSP=()=>{
+    useEffect(()=>{
+      CallApi("/all","GET",null).then(res=>{
+        setRows(res.data)
+      })
+    },[])
+    
+    const homez=()=>{
       history.replace('/home')
     }
     const classes = useStyles();
     let identified=1;
     return(
         <div className='content'>   
-              <Button className={classes.buttonProduct} variant="contained" color="primary" onClick={xemSP}>
+              <Button className={classes.buttonProduct}  variant="contained" color="secondary" onClick={callApi}>
+                  get all
+              </Button>
+              <br/>
+              <Button className={classes.buttonProduct} variant="contained" color="secondary" onClick={homez}>
                   Trang home
               </Button>
 
@@ -108,7 +126,7 @@ export default function ContentProduct(){
                   <TableBody >
                   
                   {rows.map((row) => (
-                        <StyledTableRow key={identified}>
+                        <StyledTableRow>
                             <StyledTableCell >
                               {row.images.map((r)=>(
                                 <div>
@@ -128,7 +146,7 @@ export default function ContentProduct(){
                             
                             <StyledTableCell>{row.name}</StyledTableCell>
                             <StyledTableCell>{row.ratingsAverage}</StyledTableCell>
-                  
+                            
                             <StyledTableCell> {row.ratingsQuantity}</StyledTableCell>
                             
                             <StyledTableCell>{row.price}</StyledTableCell>
@@ -147,13 +165,9 @@ export default function ContentProduct(){
                             <StyledTableCell>{row.brand}</StyledTableCell>
                             
                             <StyledTableCell>{row.date}</StyledTableCell>
-                            <StyledTableCell>{row.__v}</StyledTableCell>
-
-                            {identified =identified+1}
-                        </StyledTableRow>
-                        
-                        ))}
-                        
+                            <StyledTableCell>{row.__v}</StyledTableCell>  
+                        </StyledTableRow>                       
+                        ))}                       
                   </TableBody>
                 </Table>
             </TableContainer>

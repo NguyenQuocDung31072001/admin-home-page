@@ -1,7 +1,5 @@
 import React from 'react'
-import Header from './header/header.js'
-import Footer from './footer/footer.js'
-import Content from './content/content.js'
+import Content from './component/content/contentHome.js'
 
 export default function AdminHome(){
     return (

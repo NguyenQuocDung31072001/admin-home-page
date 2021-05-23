@@ -11,6 +11,12 @@ export const routers = [
     component: "home",
     private: true,
   },
+  {
+    label:"Sản phẩm",
+    path: "product",
+    component:"content",
+    private:true
+  },
   // {
   //   label: "Sản phẩm",
   //   path: "/product",

@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) =>
       marginTop: theme.spacing(10),
       borderRadius: 16,
       padding: 10,
+      
     },
     loginBtn: {
       fontWeight: 700,
@@ -71,7 +72,14 @@ export default function Login() {
     if (username === "" || password === "") {
       setIsErr(true);
       setHelperText("Vui lòng nhập đầy đủ thông tin");
-    } else {
+    } else if(username==="admin" && password==="123"){
+      localStorage.setItem("access-token",true)
+      history.replace("/")
+      // console.log("dung")
+    }
+    else{
+      setUserName("")
+      setPassword("")
     }
   };
   const [username, setUserName] = useState("");
@@ -102,7 +110,7 @@ export default function Login() {
               <InputLabel className={classes.label}>Tên đăng nhập:</InputLabel>
               <OutlinedInput
                 classes={{ root: classes.input }}
-                error={isErr}
+                // error={isErr}
                 id="username"
                 type="text"
                 margin="dense"
@@ -111,13 +119,14 @@ export default function Login() {
                 fullWidth
                 autoFocus
                 required
+                value={username}
               />
             </div>
             <div>
               <InputLabel className={classes.label}>Mật khẩu:</InputLabel>
               <OutlinedInput
                 classes={{ root: classes.input }}
-                error={isErr}
+                //error={isErr}
                 id="password"
                 type="password"
                 margin="dense"
@@ -126,6 +135,7 @@ export default function Login() {
                 fullWidth
                 required
                 onKeyUp={handleKeyUpPassword}
+                value={password}
               />
             </div>
             <FormHelperText error={isErr}>{helperText}</FormHelperText>

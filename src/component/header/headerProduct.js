@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -8,7 +8,9 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import {makeStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles';
-import './header.css'
+import Button from '@material-ui/core/Button';
+// import './header.css'
+import ContentProduct from "../content/contentProduct"
 const useStylesAppBar = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -63,12 +65,24 @@ const useStylesAppBar = makeStyles((theme) => ({
       },
     },
   }));
-  
+
+// let input=""
+export const ContextSearch=React.createContext();
 export default function Header(){
     const classesAppbar=useStylesAppBar();
+    const [inputSearch,setInputSearch]=useState("")
+    const [click,setClick]=useState("")
+    const handlerSearch=(e)=>{
+      setInputSearch(e.target.value)
+    }
+    const ClickMoveData =()=>{
+      setClick(inputSearch)
+    }
+    // input=inputSearch;
      return(
         
         <div className={classesAppbar.root}>
+          
             <AppBar id='appbarHeader' position="static">
               <Toolbar>
                 <IconButton
@@ -88,6 +102,7 @@ export default function Header(){
                     </div>
                     <InputBase
                       placeholder="Search…"
+                      onChange={handlerSearch}
                       classes={{
                         root: classesAppbar.inputRoot,
                         input: classesAppbar.inputInput,
@@ -95,8 +110,12 @@ export default function Header(){
                       inputProps={{ 'aria-label': 'search' }}
                     />
                 </div>
+                <Button color="inherit" onClick={ClickMoveData}>Tìm kiếm</Button>
               </Toolbar>
             </AppBar>
+            <ContextSearch.Provider value={click}>
+              <ContentProduct/>
+            </ContextSearch.Provider>
         </div>
         
      )
