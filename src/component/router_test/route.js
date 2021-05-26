@@ -14,10 +14,15 @@ export default function MyRoute(){
             <Router>
                 
                 <Switch>
-                    {/* <Route exact path="/" component="AdminHome"/> */}
+                    <Route path="/" exact>
+                        <Home/>
+                    </Route>
+                    
                     <Route  path="/home">
                         <Home/>
                     </Route>     
+                    
+                    {/* <Route path="/home" component="Home"/> */}
 
                     <Route path="/product">
                         <Header/>
