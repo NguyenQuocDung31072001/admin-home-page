@@ -4,10 +4,11 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import AdminHome from "./config-product/admin-home-page";
 import App from "./App";
+import AuthStore from "./store/authStore";
 ReactDOM.render(
-  <React.StrictMode>
+  <AuthStore>
     <App />
-  </React.StrictMode>,
+  </AuthStore>,
   document.getElementById("root")
 );
 

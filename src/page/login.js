@@ -1,18 +1,19 @@
 import {
   Button,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
   createStyles,
   OutlinedInput,
   InputLabel,
   makeStyles,
-  Theme,
   FormHelperText,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
-import { Link, useHistory, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+// import { AuthContext } from "../store/authContext";
+import apiHelper from "../helper/apiHelper";
+import { AuthContext } from "../store/authStore";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -67,20 +68,44 @@ const useStyles = makeStyles((theme) =>
 export default function Login() {
   const classes = useStyles();
   const history = useHistory();
-  const onSubmit = () => {
-    if (username === "" || password === "") {
-      setIsErr(true);
-      setHelperText("Vui lòng nhập đầy đủ thông tin");
-    } else {
-    }
-  };
+  const [authStore, dispatch] = useContext(AuthContext);
+  const { isAuth } = authStore;
+
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [isErr, setIsErr] = useState(false);
   const [helperText, setHelperText] = useState("");
-  //   useEffect(() => {
-  //     if (user) navigate("/");
-  //   }, [user, navigate]);
+
+  const onSubmit = async () => {
+    if (username === "" || password === "") {
+      setIsErr(true);
+      setHelperText("Vui lòng nhập đầy đủ thông tin");
+    } else {
+      try {
+        const responseLogin = await apiHelper.post("/account/login", {
+          username,
+          password,
+        });
+        localStorage.setItem("access-token", responseLogin.data.token);
+
+        // dispatch user
+        const responseUser = await apiHelper.get("/account/me");
+        dispatch({ type: "SET_USER", payload: responseUser.data.acc });
+
+        history.push("/");
+      } catch (error) {
+        const message = error.response
+          ? error.response.data.message
+          : error.message;
+        setIsErr(true);
+        setHelperText(message);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (isAuth) history.push("/");
+  }, [isAuth, history]);
 
   const handleKeyUpPassword = (e) => {
     if (e.keyCode === 13) {
