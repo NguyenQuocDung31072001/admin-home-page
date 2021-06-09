@@ -6,6 +6,7 @@ import { routers } from "../config/router";
 import AuthStore, { AuthContext } from "../store/authStore";
 import NotFound from "./notFound";
 import apiHelper from "../helper/apiHelper";
+import LayoutPage from "../layouts/layout";
 
 export default function RouteApp(props) {
   const token = localStorage.getItem("access-token");
@@ -47,7 +48,9 @@ export default function RouteApp(props) {
                 <Suspense fallback={<LinearProgress />}>
                   {r.private ? (
                     isAuth ? (
-                      <RenderedComponent props={props} />
+                      <LayoutPage>
+                        <RenderedComponent props={props} />
+                      </LayoutPage>
                     ) : (
                       <Redirect to="/login" />
                     )
