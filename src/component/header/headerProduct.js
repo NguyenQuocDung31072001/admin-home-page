@@ -9,7 +9,6 @@ import InputBase from '@material-ui/core/InputBase';
 import {makeStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-// import './header.css'
 import ContentProduct from "../content/contentProduct"
 const useStylesAppBar = makeStyles((theme) => ({
     root: {
@@ -78,7 +77,7 @@ export default function Header(){
     const ClickMoveData =()=>{
       setClick(inputSearch)
     }
-    // input=inputSearch;
+
      return(
         
         <div className={classesAppbar.root}>
@@ -116,6 +115,8 @@ export default function Header(){
             <ContextSearch.Provider value={click}>
               <ContentProduct/>
             </ContextSearch.Provider>
+            
+          
         </div>
         
      )
