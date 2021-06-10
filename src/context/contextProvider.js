@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
 
 
 export const ContextInitial=createContext("");
@@ -12,11 +12,3 @@ const ContextProvider=(props)=>{
     )
 }
 export default ContextProvider;
-// export function ContextTest(props){
-//     console.log(props)
-//     return(
-//         <ContextInitial.Provider value={{props}}>
-//             {props.children}
-//         </ContextInitial.Provider>
-//     )
-// }

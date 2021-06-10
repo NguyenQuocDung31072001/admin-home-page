@@ -111,10 +111,7 @@ export default function Header(){
                 <Button color="inherit" onClick={ClickMoveData}>Tìm kiếm</Button>
               </Toolbar>
             </AppBar>
-            {/* <ContextSearch.Provider value={{click}}>
-              <ContentProduct/>
-              
-            </ContextSearch.Provider> */}
+
             <ContextProvider data={click}/>
             
         </div>

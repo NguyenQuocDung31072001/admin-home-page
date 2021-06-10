@@ -79,8 +79,10 @@ export default function ContentProduct(props){
     
     const history=useHistory()
     const [rows,setRows]=useState([]);
+
     const takeData=useContext(ContextInitial)
     console.log(takeData)
+    
     const [data,setData]=useState("")
     useEffect(()=>{
       setData(takeData)
