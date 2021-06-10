@@ -1,11 +1,9 @@
 import React from "react"
 import {BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import AdminHome from "../../admin-home-page"
-import ContentProduct from "../content/contentProduct"
-import Header from "../header/headerProduct"
 import Footer from "../footer/footer"
 import Home from "../home/home"
-
+import Product from "../product/indext"
+import ContextProvider from "../../context/contextProvider"
 export default function MyRoute(){
  
     return (
@@ -23,10 +21,12 @@ export default function MyRoute(){
                     </Route>     
                     
                     {/* <Route path="/home" component="Home"/> */}
-
+                    
                     <Route path="/product">
-                        <Header/>
-                    </Route>                  
+                        <ContextProvider>
+                            <Product/>
+                        </ContextProvider>
+                    </Route>                         
                 </Switch>
                 <Footer/>
             </Router>

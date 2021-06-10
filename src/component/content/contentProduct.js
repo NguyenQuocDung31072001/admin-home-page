@@ -13,8 +13,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import {useHistory} from 'react-router-dom'
 import CallApi from "../../Api/callApi"
-import {ContextSearch} from "../header/headerProduct"
-
+import {ContextInitial} from "../../context/contextProvider"
 const StyledTableCell = withStyles((theme) => ({
     head: {
       backgroundColor: theme.palette.common.black,
@@ -80,9 +79,9 @@ export default function ContentProduct(props){
     
     const history=useHistory()
     const [rows,setRows]=useState([]);
-    const takeData=useContext(ContextSearch)
+    const takeData=useContext(ContextInitial)
+    console.log(takeData)
     const [data,setData]=useState("")
-
     useEffect(()=>{
       setData(takeData)
     },[takeData])
@@ -163,7 +162,7 @@ export default function ContentProduct(props){
                               )                                
                               )}
                             </StyledTableCell>
- 
+                              
                             <StyledTableCell>
                               {row.categories.map((r)=>(
                                 <div>

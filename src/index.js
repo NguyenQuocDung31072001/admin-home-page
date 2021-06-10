@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import MyRoute from "./component/router_test/route"
-import Header from "./component/header/headerProduct"
 ReactDOM.render(
   <React.StrictMode>
     <MyRoute />

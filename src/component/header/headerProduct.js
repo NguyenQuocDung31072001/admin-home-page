@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -9,7 +9,7 @@ import InputBase from '@material-ui/core/InputBase';
 import {makeStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import ContentProduct from "../content/contentProduct"
+import ContextProvider from "../../context/contextProvider"
 const useStylesAppBar = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -66,7 +66,6 @@ const useStylesAppBar = makeStyles((theme) => ({
   }));
 
 // let input=""
-export const ContextSearch=React.createContext();
 export default function Header(){
     const classesAppbar=useStylesAppBar();
     const [inputSearch,setInputSearch]=useState("")
@@ -77,7 +76,7 @@ export default function Header(){
     const ClickMoveData =()=>{
       setClick(inputSearch)
     }
-
+   
      return(
         
         <div className={classesAppbar.root}>
@@ -112,11 +111,12 @@ export default function Header(){
                 <Button color="inherit" onClick={ClickMoveData}>Tìm kiếm</Button>
               </Toolbar>
             </AppBar>
-            <ContextSearch.Provider value={click}>
+            {/* <ContextSearch.Provider value={{click}}>
               <ContentProduct/>
-            </ContextSearch.Provider>
+              
+            </ContextSearch.Provider> */}
+            <ContextProvider data={click}/>
             
-          
         </div>
         
      )
