@@ -1,9 +1,8 @@
 import React from "react"
 import {BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Footer from "../footer/footer"
+import Header from "../header/headerProduct";
 import Home from "../home/home"
-import Product from "../product/indext"
-import ContextProvider from "../../context/contextProvider"
 export default function MyRoute(){
  
     return (
@@ -23,9 +22,9 @@ export default function MyRoute(){
                     {/* <Route path="/home" component="Home"/> */}
                     
                     <Route path="/product">
-                        <ContextProvider>
-                            <Product/>
-                        </ContextProvider>
+                        
+                            <Header/>
+                       
                     </Route>                         
                 </Switch>
                 <Footer/>

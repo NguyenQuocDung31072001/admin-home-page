@@ -10,6 +10,7 @@ import {makeStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ContextProvider from "../../context/contextProvider"
+import ContentProduct from '../content/contentProduct';
 const useStylesAppBar = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -112,8 +113,8 @@ export default function Header(){
               </Toolbar>
             </AppBar>
 
-            <ContextProvider data={click}/>
-            
+            {/* <ContextProvider data={click}/> */}
+            <ContentProduct name={click}/>
         </div>
         
      )
