@@ -18,13 +18,9 @@ export default function MyRoute(){
                     <Route  path="/home">
                         <Home/>
                     </Route>     
-                    
-                    {/* <Route path="/home" component="Home"/> */}
-                    
-                    <Route path="/product">
-                        
+
+                    <Route path="/product">                       
                             <Header/>
-                       
                     </Route>                         
                 </Switch>
                 <Footer/>
