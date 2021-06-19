@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react';
+import React,{useEffect,useState,useContext} from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,11 +8,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import './content.css';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import axios from 'axios'
 import {useHistory} from 'react-router-dom'
+import CallApi from "../../../helper/callAPIforComponent"
 const StyledTableCell = withStyles((theme) => ({
     head: {
       backgroundColor: theme.palette.common.black,
@@ -33,51 +32,93 @@ const StyledTableCell = withStyles((theme) => ({
 
   const useStyles = makeStyles({
     table: {
-      minWidth: 700,
+      minWidth: 100,
+      // maxWidth:300,
     },
     appbarProduct:{
       // backgroundColor:
     },
     imageClass: {
       width:200,
-      height:100
+      height:100,
+      margin:12
     },
     description:{
-      width:300
+      width:400,
     },
     buttonProduct:{
-      backgroundColor:'rgb(245, 66, 111)',
+      
       margin:10
+    },
+    so:{
+      width: 20,
+      paddingLeft:50,
+    },
+    imageCover:{
+      with:300
+    },
+    nameHead:{
+      paddingLeft:40,
+    },
+    ratingHead:{
+      paddingRight:0,
+      margin: 0,
+    }
+    ,
+    descriptionHead:{
+      paddingLeft:100
+    },
+    dateHead:{
+      paddingLeft:0,
     }
   });
 
-  
-
-export default function ContentProduct(){
+export default function ContentProduct(props){
+    
     const history=useHistory()
     const [rows,setRows]=useState([]);
-    useEffect(()=>{
-      axios({
-        method:'GET',
-        url:'http://localhost:4000/product/all',
-        data:null
-      }).then(res=>{
 
-        setRows(res.data);
-        
-      }).catch(err=>{
-        console.log(err)
-      });
-    },[]);
+    const takeData=props.name;
     
-    const xemSP=()=>{
+    const [data,setData]=useState("")
+    useEffect(()=>{
+      setData(takeData)
+    },[takeData])
+
+
+    const callApi=()=>{
+      CallApi("/all","GET",null).then(res=>{
+        setRows(res.data)
+      })
+    }
+     useEffect(()=>{
+       if(data !== ""){
+          const name="?name="+data;
+          CallApi(name,"GET",null).then(res=>{
+          setRows(res.data)
+        })
+       }
+      },[data]);
+    
+    useEffect(()=>{
+      CallApi("/all","GET",null).then(res=>{
+        setRows(res.data)
+      })
+    },[])
+    
+    const home=()=>{
       history.replace('/home')
     }
     const classes = useStyles();
     let identified=1;
+    // const imageError="https://cdn.shopify.com/s/files/1/1104/4168/products/Allbirds_WL_RN_SF_PDP_Natural_Grey_BTY_10b4c383-7fc6-4b58-8b3f-6d05cef0369c_900x900.png?v=1610061677"
     return(
         <div className='content'>   
-              <Button className={classes.buttonProduct} variant="contained" color="primary" onClick={xemSP}>
+              <Button className={classes.buttonProduct}  variant="contained" color="secondary" onClick={callApi}>
+                  get all
+              </Button>
+              <br/>
+              <Button className={classes.buttonProduct} variant="contained" color="secondary" onClick={home}>
                   Trang home
               </Button>
 
@@ -93,31 +134,34 @@ export default function ContentProduct(){
                     <TableRow>
                         <StyledTableCell>images</StyledTableCell>
                         <StyledTableCell >categories</StyledTableCell>
-                        <StyledTableCell >name</StyledTableCell>
-                        <StyledTableCell >ratingsAverage</StyledTableCell>
-                        <StyledTableCell >ratingsQuantity</StyledTableCell>
-                        <StyledTableCell >price</StyledTableCell>
-                        <StyledTableCell >description</StyledTableCell>
-                        <StyledTableCell >imageCover</StyledTableCell>
+                        <StyledTableCell className={classes.nameHead}>name</StyledTableCell>
+                        <StyledTableCell className={classes.ratingHead}>ratingsAverage</StyledTableCell>
+                        <StyledTableCell className={classes.ratingHead}>ratingsQuantity</StyledTableCell>
+                        <StyledTableCell className={classes.so}>price</StyledTableCell>
+                        <StyledTableCell className={classes.descriptionHead}>description</StyledTableCell>
+                        {/* <StyledTableCell >imageCover</StyledTableCell> */}
                         <StyledTableCell >brand</StyledTableCell>
                         <StyledTableCell >date</StyledTableCell>
-                        <StyledTableCell >__v</StyledTableCell>
+                        {/* <StyledTableCell >__v</StyledTableCell> */}
                     </TableRow>
                   </TableHead>
 
                   <TableBody >
                   
                   {rows.map((row) => (
-                        <StyledTableRow key={identified}>
+                        <StyledTableRow>
                             <StyledTableCell >
                               {row.images.map((r)=>(
+                                // const altt="https://cdn.shopify.com/s/files/1/1104/4168/products/Allbirds_WL_RN_SF_PDP_Natural_Grey_BTY_10b4c383-7fc6-4b58-8b3f-6d05cef0369c_900x900.png?v=1610061677"
+                                
                                 <div>
-                                  <img src={r} alt='image error' className={classes.imageClass}></img><br/>
+                                   <img src={r} alt="image error" onError={(e)=>{e.target.onError=null; e.target.src="https://cdn.shopify.com/s/files/1/1104/4168/products/Allbirds_WL_RN_SF_PDP_Natural_Grey_BTY_10b4c383-7fc6-4b58-8b3f-6d05cef0369c_900x900.png"}}
+                                   className={classes.imageClass}></img><br/>
                                 </div>                                                                
                               )                                
                               )}
                             </StyledTableCell>
- 
+                              
                             <StyledTableCell>
                               {row.categories.map((r)=>(
                                 <div>
@@ -127,11 +171,11 @@ export default function ContentProduct(){
                             </StyledTableCell>
                             
                             <StyledTableCell>{row.name}</StyledTableCell>
-                            <StyledTableCell>{row.ratingsAverage}</StyledTableCell>
-                  
-                            <StyledTableCell> {row.ratingsQuantity}</StyledTableCell>
+                            <StyledTableCell className={classes.so}>{row.ratingsAverage}</StyledTableCell>
                             
-                            <StyledTableCell>{row.price}</StyledTableCell>
+                            <StyledTableCell className={classes.so}> {row.ratingsQuantity}</StyledTableCell>
+                            
+                            <StyledTableCell className={classes.so}>{row.price}</StyledTableCell>
                             <StyledTableCell>
                               {
                                 <div className={classes.description}>
@@ -139,21 +183,17 @@ export default function ContentProduct(){
                                 </div>
                               }
                             </StyledTableCell>
-                            <StyledTableCell>
-                              <div className={classes.description}>
+                            {/* <StyledTableCell>
+                              <div className={classes.imageCover}>
                                 {row.imageCover}
                               </div>
-                            </StyledTableCell>
+                            </StyledTableCell> */}
                             <StyledTableCell>{row.brand}</StyledTableCell>
                             
-                            <StyledTableCell>{row.date}</StyledTableCell>
-                            <StyledTableCell>{row.__v}</StyledTableCell>
-
-                            {identified =identified+1}
-                        </StyledTableRow>
-                        
-                        ))}
-                        
+                            <StyledTableCell className={classes.dateHead}>{row.date}</StyledTableCell>
+                            {/* <StyledTableCell>{row.__v}</StyledTableCell>   */}
+                        </StyledTableRow>                       
+                        ))}                       
                   </TableBody>
                 </Table>
             </TableContainer>

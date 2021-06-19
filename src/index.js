@@ -5,7 +5,19 @@ import reportWebVitals from "./reportWebVitals";
 import AdminHome from "./config-product/admin-home-page";
 import App from "./App";
 import AuthStore from "./store/authStore";
+import ContentProduct from "./component/product/content/contentProduct"
+import ContentHome from "./component/product/content/contentHome"
+import HeaderProduct from "./component/product/header/headerProduct"
+import HeaderHome from "./component/product/header/headerHome"
+import Footer from "./component/product/footer/footer"
 ReactDOM.render(
+  // <React.StrictMode>
+  //   {/* <HeaderHome/> */}
+  //   {/* <ContentHome/> */}
+  //   {/* <HeaderProduct/>
+  //   <ContentProduct />
+  //   <Footer/> */}
+  // </React.StrictMode>,
   <AuthStore>
     <App />
   </AuthStore>,
