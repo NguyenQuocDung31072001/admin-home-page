@@ -1,15 +1,14 @@
-import React,{useEffect, useState} from 'react';
+import React,{useState} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
-import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import {makeStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import ContentProduct from '../content/contentProduct';
+import '../header/header.css'
+
 const useStylesAppBar = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -65,22 +64,14 @@ const useStylesAppBar = makeStyles((theme) => ({
     },
   }));
 
-// let input=""
-<<<<<<< HEAD:src/component/header/headerProduct.js
-export default function Header(){
-=======
-export default function HeaderProduct(){
->>>>>>> a1a7adadfc40918040081215758e34617ba763ca:src/component/content/header/headerProduct.js
+
+export default function HeaderHome(){
     const classesAppbar=useStylesAppBar();
     const [inputSearch,setInputSearch]=useState("")
-    const [click,setClick]=useState("")
     const handlerSearch=(e)=>{
       setInputSearch(e.target.value)
     }
-    const ClickMoveData =()=>{
-      setClick(inputSearch)
-    }
-   
+    // input=inputSearch;
      return(
         
         <div className={classesAppbar.root}>
@@ -98,26 +89,8 @@ export default function HeaderProduct(){
                 <Typography className={classesAppbar.title} variant="h6" noWrap>
                   Product
                 </Typography>
-                  <div className={classesAppbar.search}>
-                    <div className={classesAppbar.searchIcon}>
-                      <SearchIcon />
-                    </div>
-                    <InputBase
-                      placeholder="Search…"
-                      onChange={handlerSearch}
-                      classes={{
-                        root: classesAppbar.inputRoot,
-                        input: classesAppbar.inputInput,
-                      }}
-                      inputProps={{ 'aria-label': 'search' }}
-                    />
-                </div>
-                <Button color="inherit" onClick={ClickMoveData}>Tìm kiếm</Button>
               </Toolbar>
             </AppBar>
-
-            {/* <ContextProvider data={click}/> */}
-            <ContentProduct name={click}/>
         </div>
         
      )
