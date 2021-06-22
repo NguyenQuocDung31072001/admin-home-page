@@ -1,5 +1,6 @@
 import React from "react";
 import clsx from "clsx";
+import { useHistory } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {
   AppBar,
@@ -77,23 +78,26 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
-    padding: theme.spacing(0, 1),
+    padding: theme.spacing(0,1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(0),
   },
 }));
 const menuList = [
   {
     name: "Khách hàng",
     icon: <People />,
+    path:"/customer",
+
   },
   {
     name: "Loại sản phẩm",
     icon: <Category />,
+    path:"/product",
   },
 ];
 export default function LayoutPage({ children }) {
@@ -101,6 +105,7 @@ export default function LayoutPage({ children }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  const History=useHistory()
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -156,9 +161,10 @@ export default function LayoutPage({ children }) {
         <Divider />
         <List>
           {menuList.map((item, index) => (
-            <ListItem button key={index}>
+            <ListItem onClick={()=>History.replace(item.path)} button key={index}  >
               <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.name} />
+              <ListItemText  primary={item.name} />
+              
             </ListItem>
           ))}
         </List>

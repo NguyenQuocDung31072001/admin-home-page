@@ -65,7 +65,7 @@ const useStylesAppBar = makeStyles((theme) => ({
   }));
 
 
-export default function HeaderHome(){
+export default function HeaderAccount(){
     const classesAppbar=useStylesAppBar();
     const [inputSearch,setInputSearch]=useState("")
     const handlerSearch=(e)=>{
@@ -75,8 +75,8 @@ export default function HeaderHome(){
      return(
         
         <div className={classesAppbar.root}>
-          
-            <AppBar id='appbarHeader' position="static">
+          <h2 id="appbarHeader">Thông tin người dùng</h2>
+            {/* <AppBar id='appbarHeader' position="static">
               <Toolbar>
                 <IconButton
                   edge="start"
@@ -87,10 +87,10 @@ export default function HeaderHome(){
                   <MenuIcon />
                 </IconButton>
                 <Typography className={classesAppbar.title} variant="h6" noWrap>
-                  Product
+                  Thông tin người dùng
                 </Typography>
               </Toolbar>
-            </AppBar>
+            </AppBar> */}
         </div>
         
      )

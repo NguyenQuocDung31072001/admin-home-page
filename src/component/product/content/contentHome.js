@@ -38,7 +38,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ContentHome() {
+export default function ContentAccount() {
   const [rows, setRows] = useState([]);
   const history = useHistory();
   const xemSP = () => {
@@ -62,14 +62,14 @@ export default function ContentHome() {
   // let identified = 1;
   return (
     <div className="content">
-      <Button
+      {/* <Button
         id="button-themsp"
         variant="contained"
         color="primary"
         onClick={xemSP}
       >
         Xem sản phẩm
-      </Button>
+      </Button> */}
 
       <AppBar id="appbar-product" position="static">
         <Toolbar>Account</Toolbar>
@@ -79,11 +79,11 @@ export default function ContentHome() {
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>_id</StyledTableCell>
+              <StyledTableCell>id</StyledTableCell>
               <StyledTableCell>username</StyledTableCell>
               <StyledTableCell>password</StyledTableCell>
               <StyledTableCell>email</StyledTableCell>
-              <StyledTableCell>__v</StyledTableCell>
+              {/* <StyledTableCell>_v</StyledTableCell> */}
               <StyledTableCell>address</StyledTableCell>
               <StyledTableCell>name</StyledTableCell>
               <StyledTableCell>phone</StyledTableCell>
@@ -101,7 +101,7 @@ export default function ContentHome() {
                 <StyledTableCell>{row.password}</StyledTableCell>
                 <StyledTableCell>{row.email}</StyledTableCell>
 
-                <StyledTableCell>{row.__v}</StyledTableCell>
+                {/* <StyledTableCell>{row.__v}</StyledTableCell> */}
                 {/* <Button className='sua-xoa' variant="contained" color="primary">Sửa</Button>
                             <Button className='sua-xoa' variant="contained" color="primary">xóa</Button> */}
                 <StyledTableCell>{row.address}</StyledTableCell>

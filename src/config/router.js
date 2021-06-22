@@ -11,16 +11,16 @@ export const routers = [
     component: "home",
     private: true,
   },
-  // {
-  //   label: "Sản phẩm",
-  //   path: "/product",
-  //   component: "product",
-  //   private: true,
-  // },
-  // {
-  //   label: "Khách hàng",
-  //   path: "/customer",
-  //   component: "customer",
-  //   private: true,
-  // },
+  {
+    label: "Sản phẩm",
+    path: "/product",
+    component: "product",
+    private: true,
+  },
+  {
+    label: "Khách hàng",
+    path: "/customer",
+    component: "account",
+    private: true,
+  },
 ];

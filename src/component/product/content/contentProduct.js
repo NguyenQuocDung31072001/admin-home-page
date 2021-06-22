@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import { LinearProgress } from '@material-ui/core';
 import {useHistory} from 'react-router-dom'
 import CallApi from "../../../helper/callAPIforComponent"
 const StyledTableCell = withStyles((theme) => ({
@@ -81,6 +82,7 @@ export default function ContentProduct(props){
     const takeData=props.name;
     
     const [data,setData]=useState("")
+    const [loading,setLoading]=useState(false)
     useEffect(()=>{
       setData(takeData)
     },[takeData])
@@ -101,26 +103,38 @@ export default function ContentProduct(props){
       },[data]);
     
     useEffect(()=>{
-      CallApi("/all","GET",null).then(res=>{
-        setRows(res.data)
-      })
+      const getProduct = async () => {
+        try {
+          setLoading(true);
+          await CallApi("/all","GET",null).then(res=>{
+            setRows(res.data)
+          });
+
+          
+          setLoading(false);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      
     },[])
     
-    const home=()=>{
-      history.replace('/home')
-    }
+    // const home=()=>{
+    //   history.replace('/customer')
+    // }
     const classes = useStyles();
     let identified=1;
     // const imageError="https://cdn.shopify.com/s/files/1/1104/4168/products/Allbirds_WL_RN_SF_PDP_Natural_Grey_BTY_10b4c383-7fc6-4b58-8b3f-6d05cef0369c_900x900.png?v=1610061677"
     return(
         <div className='content'>   
               <Button className={classes.buttonProduct}  variant="contained" color="secondary" onClick={callApi}>
-                  get all
+                  Lấy tất cả sản phẩm
               </Button>
               <br/>
-              <Button className={classes.buttonProduct} variant="contained" color="secondary" onClick={home}>
+              {/* <Button className={classes.buttonProduct} variant="contained" color="secondary" onClick={home}>
                   Trang home
-              </Button>
+              </Button> */}
 
              <AppBar id='appbar-product' position="static">
                 <Toolbar>
@@ -132,16 +146,16 @@ export default function ContentProduct(props){
                 <Table className={classes.table} aria-label="customized table">
                   <TableHead>
                     <TableRow>
-                        <StyledTableCell>images</StyledTableCell>
-                        <StyledTableCell >categories</StyledTableCell>
-                        <StyledTableCell className={classes.nameHead}>name</StyledTableCell>
-                        <StyledTableCell className={classes.ratingHead}>ratingsAverage</StyledTableCell>
-                        <StyledTableCell className={classes.ratingHead}>ratingsQuantity</StyledTableCell>
-                        <StyledTableCell className={classes.so}>price</StyledTableCell>
-                        <StyledTableCell className={classes.descriptionHead}>description</StyledTableCell>
+                        <StyledTableCell>Images</StyledTableCell>
+                        <StyledTableCell >Categories</StyledTableCell>
+                        <StyledTableCell className={classes.nameHead}>Name</StyledTableCell>
+                        <StyledTableCell className={classes.ratingHead}>Ratings Average</StyledTableCell>
+                        <StyledTableCell className={classes.ratingHead}>Ratings Quantity</StyledTableCell>
+                        <StyledTableCell className={classes.so}>Price</StyledTableCell>
+                        <StyledTableCell className={classes.descriptionHead}>Description</StyledTableCell>
                         {/* <StyledTableCell >imageCover</StyledTableCell> */}
-                        <StyledTableCell >brand</StyledTableCell>
-                        <StyledTableCell >date</StyledTableCell>
+                        <StyledTableCell >Brand</StyledTableCell>
+                        <StyledTableCell >Date</StyledTableCell>
                         {/* <StyledTableCell >__v</StyledTableCell> */}
                     </TableRow>
                   </TableHead>

@@ -80,8 +80,18 @@ export default function HeaderProduct(){
      return(
         
         <div className={classesAppbar.root}>
-          
-            <AppBar id='appbarHeader' position="static">
+            <h2 id="appbarHeader">Sản phẩm</h2> 
+            <InputBase
+                      placeholder="Search…"
+                      onChange={handlerSearch}
+                      classes={{
+                        root: classesAppbar.inputRoot,
+                        input: classesAppbar.inputInput,
+                      }}
+                      inputProps={{ 'aria-label': 'search' }}
+                    />
+            <Button color="inherit" onClick={ClickMoveData}>Tìm kiếm</Button>
+            {/* <AppBar id='appbarHeader' position="static">
               <Toolbar>
                 <IconButton
                   edge="start"
@@ -110,7 +120,7 @@ export default function HeaderProduct(){
                 </div>
                 <Button color="inherit" onClick={ClickMoveData}>Tìm kiếm</Button>
               </Toolbar>
-            </AppBar>
+            </AppBar> */}
 
             {/* <ContextProvider data={click}/> */}
             <ContentProduct name={click}/>
