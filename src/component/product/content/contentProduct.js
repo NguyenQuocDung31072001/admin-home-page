@@ -103,20 +103,9 @@ export default function ContentProduct(props){
       },[data]);
     
     useEffect(()=>{
-      const getProduct = async () => {
-        try {
-          setLoading(true);
-          await CallApi("/all","GET",null).then(res=>{
-            setRows(res.data)
-          });
-
-          
-          setLoading(false);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-
+      CallApi("/all","GET",null).then(res=>{
+        setRows(res.data)
+      });
       
     },[])
     
