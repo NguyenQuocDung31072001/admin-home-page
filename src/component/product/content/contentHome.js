@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import "./contentHome.css";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from "axios";
 
 import { useHistory } from "react-router-dom";
@@ -40,6 +41,7 @@ const useStyles = makeStyles({
 
 export default function ContentAccount() {
   const [rows, setRows] = useState([]);
+  const [loading,setLoading]=useState(false)
   const history = useHistory();
   const xemSP = () => {
     history.replace("/product");
@@ -52,6 +54,7 @@ export default function ContentAccount() {
     })
       .then((res) => {
         setRows(res.data);
+        setLoading(true)
       })
       .catch((err) => {
         console.log(err);
@@ -75,7 +78,7 @@ export default function ContentAccount() {
         <Toolbar>Account</Toolbar>
       </AppBar>
 
-      <TableContainer component={Paper}>
+      {loading?<TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
@@ -113,7 +116,7 @@ export default function ContentAccount() {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer>:<CircularProgress disableShrink/>}
     </div>
   );
 }

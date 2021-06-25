@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { LinearProgress } from '@material-ui/core';
 import {useHistory} from 'react-router-dom'
 import CallApi from "../../../helper/callAPIforComponent"
@@ -88,16 +89,22 @@ export default function ContentProduct(props){
     },[takeData])
 
 
-    const callApi=()=>{
-      CallApi("/all","GET",null).then(res=>{
+    const callApi=async ()=>{
+      setLoading(false)
+       CallApi("/all","GET",null).then(res=>{
         setRows(res.data)
-      })
+        setLoading(true)
+      }
+      )
     }
      useEffect(()=>{
+       
        if(data !== ""){
+        setLoading(false)
           const name="?name="+data;
           CallApi(name,"GET",null).then(res=>{
-          setRows(res.data)
+          setRows(res.data);
+          setLoading(true)
         })
        }
       },[data]);
@@ -105,6 +112,7 @@ export default function ContentProduct(props){
     useEffect(()=>{
       CallApi("/all","GET",null).then(res=>{
         setRows(res.data)
+        setLoading(true)
       });
       
     },[])
@@ -131,7 +139,8 @@ export default function ContentProduct(props){
                 </Toolbar>
               </AppBar>
 
-            <TableContainer component={Paper}>
+            {loading?<TableContainer component={Paper}>
+              {/* {setLoading(false)} */}
                 <Table className={classes.table} aria-label="customized table">
                   <TableHead>
                     <TableRow>
@@ -199,7 +208,8 @@ export default function ContentProduct(props){
                         ))}                       
                   </TableBody>
                 </Table>
-            </TableContainer>
+
+            </TableContainer>:<CircularProgress disableShrink />}
         </div>
     )
 }
