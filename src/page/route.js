@@ -32,7 +32,7 @@ export default function RouteApp(props) {
   }, []);
   useEffect(() => {
     console.log("authState", authState);
-  });
+  }, [authState]);
 
   return (
     <BrowserRouter>

@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { useHistory } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {
+  Avatar,
   AppBar,
   Box,
   CssBaseline,
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   appBar: {
+    backgroundColor: "#2F80ED",
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
@@ -78,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
-    padding: theme.spacing(0,1),
+    padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
@@ -86,18 +88,22 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(0),
   },
+  activeItem: {
+    backgroundColor: "#2196F3",
+    boxShadow: "inset 0px 4px 4px rgba(0, 0, 0, 0.25)",
+    color: "#fff",
+  },
 }));
 const menuList = [
   {
     name: "Khách hàng",
     icon: <People />,
-    path:"/customer",
-
+    path: "/customer",
   },
   {
     name: "Loại sản phẩm",
     icon: <Category />,
-    path:"/product",
+    path: "/product",
   },
 ];
 export default function LayoutPage({ children }) {
@@ -105,7 +111,7 @@ export default function LayoutPage({ children }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  const History=useHistory()
+  const History = useHistory();
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -113,6 +119,7 @@ export default function LayoutPage({ children }) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  console.log(History);
 
   return (
     <div className={classes.root}>
@@ -135,9 +142,11 @@ export default function LayoutPage({ children }) {
           >
             <Menu />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            Trang quản lý
-          </Typography>
+          {!open && (
+            <Typography variant="h6" noWrap>
+              <b>Trang quản lý</b>
+            </Typography>
+          )}
         </Toolbar>
       </AppBar>
       <Drawer
@@ -160,11 +169,28 @@ export default function LayoutPage({ children }) {
         </div>
         <Divider />
         <List>
+          {open && (
+            <ListItem>
+              <Avatar alt="" src="/icon-home.png" />
+
+              <Typography variant="h6">
+                <b>Trang quản lý</b>
+              </Typography>
+            </ListItem>
+          )}
           {menuList.map((item, index) => (
-            <ListItem onClick={()=>History.replace(item.path)} button key={index}  >
+            <ListItem
+              className={`${
+                History.location.pathname === item.path
+                  ? classes.activeItem
+                  : ""
+              }`}
+              onClick={() => History.replace(item.path)}
+              button
+              key={index}
+            >
               <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText  primary={item.name} />
-              
+              <ListItemText primary={<b>{item.name}</b>} />
             </ListItem>
           ))}
         </List>

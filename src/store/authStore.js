@@ -3,6 +3,7 @@ import React, { createContext, useReducer } from "react";
 const initialState = {
   isAuth: false,
   user: null,
+  accounts: [],
 };
 const Reducer = (state, action) => {
   switch (action.type) {
@@ -11,6 +12,11 @@ const Reducer = (state, action) => {
         ...state,
         isAuth: true,
         user: action.payload,
+      };
+    case "SET_ACCOUNTS":
+      return {
+        ...state,
+        accounts: action.payload,
       };
     default:
       return state;
