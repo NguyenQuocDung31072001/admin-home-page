@@ -1,7 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import HeaderAccount from "../component/product/header/headerHome";
-import ContentAccount from "../component/product/content/contentHome";
-import Footer from "../component/product/footer/footer";
 import apiHelper from "../helper/apiHelper";
 import {
   Avatar,

@@ -10,6 +10,7 @@ import {makeStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ContentProduct from '../content/contentProduct';
+import DataGridDemo from '../content/contentProduct2';
 const useStylesAppBar = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -91,39 +92,9 @@ export default function HeaderProduct(){
                       inputProps={{ 'aria-label': 'search' }}
                     />
             <Button color="inherit" onClick={ClickMoveData}>Tìm kiếm</Button>
-            {/* <AppBar id='appbarHeader' position="static">
-              <Toolbar>
-                <IconButton
-                  edge="start"
-                  className={classesAppbar.menuButton}
-                  color="inherit"
-                  aria-label="open drawer"
-                  >
-                  <MenuIcon />
-                </IconButton>
-                <Typography className={classesAppbar.title} variant="h6" noWrap>
-                  Product
-                </Typography>
-                  <div className={classesAppbar.search}>
-                    <div className={classesAppbar.searchIcon}>
-                      <SearchIcon />
-                    </div>
-                    <InputBase
-                      placeholder="Search…"
-                      onChange={handlerSearch}
-                      classes={{
-                        root: classesAppbar.inputRoot,
-                        input: classesAppbar.inputInput,
-                      }}
-                      inputProps={{ 'aria-label': 'search' }}
-                    />
-                </div>
-                <Button color="inherit" onClick={ClickMoveData}>Tìm kiếm</Button>
-              </Toolbar>
-            </AppBar> */}
 
-            {/* <ContextProvider data={click}/> */}
-            <ContentProduct name={click}/>
+            {/* <ContentProduct name={click}/> */}
+            <DataGridDemo/>
         </div>
         
      )

@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const URL_API="http://localhost:4000/product"
+const URL_API="http://localhost:4000/type-product/all"
 export default function CallApi(endPoint,method,body){
 
     return axios({

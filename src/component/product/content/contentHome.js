@@ -84,7 +84,7 @@ export default function ContentAccount() {
             <TableRow>
               <StyledTableCell>id</StyledTableCell>
               <StyledTableCell>username</StyledTableCell>
-              <StyledTableCell>password</StyledTableCell>
+              {/* <StyledTableCell>password</StyledTableCell> */}
               <StyledTableCell>email</StyledTableCell>
               {/* <StyledTableCell>_v</StyledTableCell> */}
               <StyledTableCell>address</StyledTableCell>
@@ -98,19 +98,11 @@ export default function ContentAccount() {
               
               <StyledTableRow >
                 <StyledTableCell >{row._id}</StyledTableCell>
-
-                <StyledTableCell>{row.username}</StyledTableCell>
-
-                <StyledTableCell>{row.password}</StyledTableCell>
+                <StyledTableCell>{row.username}</StyledTableCell>               
                 <StyledTableCell>{row.email}</StyledTableCell>
-
-                {/* <StyledTableCell>{row.__v}</StyledTableCell> */}
-                {/* <Button className='sua-xoa' variant="contained" color="primary">Sửa</Button>
-                            <Button className='sua-xoa' variant="contained" color="primary">xóa</Button> */}
                 <StyledTableCell>{row.address}</StyledTableCell>
                 <StyledTableCell>{row.name}</StyledTableCell>
-                <StyledTableCell>{row.phone}</StyledTableCell>
-                
+                <StyledTableCell>{row.phone}</StyledTableCell>               
               </StyledTableRow>
               
             ))}
