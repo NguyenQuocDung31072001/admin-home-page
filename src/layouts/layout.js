@@ -23,8 +23,9 @@ import {
   ChevronRight,
   Menu,
   People,
+ 
 } from "@material-ui/icons";
-
+import DnsSharpIcon from '@material-ui/icons/DnsSharp';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -103,8 +104,13 @@ const menuList = [
   {
     name: "Loại sản phẩm",
     icon: <Category />,
-    path: "/product",
+    path: "/type-product",
   },
+  {
+    name:"Sản phẩm",
+    icon:<DnsSharpIcon/>,
+    path:"/product",
+  }
 ];
 export default function LayoutPage({ children }) {
   const classes = useStyles();

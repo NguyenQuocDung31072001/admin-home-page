@@ -16,7 +16,7 @@ export default function Product(props){
     const columns = [
         {
           field: 'name',
-          headerName: 'Tên sản phẩm',
+          headerName: 'Tên loại sản phẩm',
           width: 200,
           type:"string",
           editable: true,
@@ -66,7 +66,7 @@ export default function Product(props){
               <Box display="flex" flexWrap="wrap" mb={2}>
                 <Box mr={2}>
                   <Typography variant="h6">
-                    <b>Danh sách sản phẩm</b>
+                    <b>Danh sách loại sản phẩm</b>
                   </Typography>
                   <Typography variant="caption" display="block" gutterBottom>
                   Đang có <b>{rows.length} </b>sản phẩm
