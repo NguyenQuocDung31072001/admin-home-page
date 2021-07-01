@@ -12,9 +12,9 @@ export const routers = [
     private: true,
   },
   {
-    label: "Loại sản phẩm",
-    path: "/type-product",
-    component: "type-product",
+    label: "Sản phẩm",
+    path: "/product",
+    component: "product",
     private: true,
   },
   {
@@ -24,9 +24,9 @@ export const routers = [
     private: true,
   },
   {
-    label:"Sản phẩm",
-    path:"/product",
-    component:"product",
-    private:true
-  }
+    label: "Loai sản phẩm",
+    path: "/type-product",
+    component: "type-product",
+    private: true,
+  },
 ];

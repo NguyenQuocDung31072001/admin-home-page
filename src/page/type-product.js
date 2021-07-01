@@ -1,110 +1,126 @@
-import React,{useEffect,useState,useContext} from "react";
-import apiHelper from "../helper/apiHelper";
-import { DataGrid } from '@material-ui/data-grid';
+import React, { useEffect, useState, useContext, useCallback } from "react";
+import { DataGrid } from "@material-ui/data-grid";
 import {
   Avatar,
   Box,
   Button,
   Typography,
   OutlinedInput,
-  Paper
-} from "@material-ui/core"
+  Paper,
+} from "@material-ui/core";
+import { getTypeProduct, getProduct } from "../helper/CallApiHelper";
 
+export default function TypeProduct(props) {
+  const columns = [
+    {
+      field: "name",
+      headerName: "Loại sản phẩm",
+      width: 400,
+      type: "string",
+      editable: true,
+      renderCell: (params) => (
+        <Box display="flex" flexWrap="wrap" p={1} m={1}>
+          <Box p={1}>
+            <Avatar
+              variant="square"
+              alt=""
+              src={params.getValue(params.id, "image")}
+            />
+          </Box>
+          <Box p={1}>
+            <Typography variant="body1">
+              <b>{params.getValue(params.id, "name")}</b>
+            </Typography>
+          </Box>
+        </Box>
+      ),
+    },
+    {
+      field: "quantity",
+      headerName: "Số lượng sản phẩm",
+      width: 400,
+      renderCell: (params) => (
+        <Box p={1}>
+          <Typography variant="body1">
+            <b>{params.getValue(params.id, "quantity")}</b>
+          </Typography>
+          <Typography variant="caption" display="block" gutterBottom>
+            Sản phẩm
+          </Typography>
+        </Box>
+      ),
+    },
+  ];
 
-export default function Product(props){
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const getData = useCallback(async () => {
+    setLoading(true);
+    const data = await getTypeProduct();
+    const tmp = data.map((index, key) => ({
+      id: key + 1,
+      name: index.name,
+      image: index.urlImg,
+      quantity: index.quantity,
+    }));
+    setRows(tmp);
+    setLoading(false);
+  });
+  useEffect(() => {
+    // CallApi("","GET",null).then(res=>{
+    //   const data= res.data.map((index,key)=>({
+    //     id:key+1,
+    //     name:index.name,
+    //     image:index.urlImg
+    //   }))
+    //   setRows(data);
+    // });
+    getData();
+    getProduct();
+  }, []);
+  return (
+    <div style={{ height: 400, width: "100%" }}>
+      <Box>
+        <Box display="flex" flexWrap="wrap" mb={2}>
+          <Box mr={2}>
+            <Typography variant="h6">
+              <b>Danh sách loại sản phẩm</b>
+            </Typography>
+            <Typography variant="caption" display="block" gutterBottom>
+              Đang có <b>{rows.length} </b> loại sản phẩm
+            </Typography>
+          </Box>
 
-    const columns = [
-        {
-          field: 'name',
-          headerName: 'Tên loại sản phẩm',
-          width: 200,
-          type:"string",
-          editable: true,
-        },
-        {
-          field: 'image',
-          headerName: 'Hình ảnh',
-          width: 300,
-          renderCell: (params) => (
-            
-            <Box display="flex" flexWrap="wrap" p={1} m={1}>
-              <Box p={1}>
-                <Avatar
-                  variant="square"
-                  alt=""
-                  src={params.getValue(params.id,"image")}
-                />
-              </Box>
-            </Box>
-          ),
-        },
-      ];
-      
-    const [rows,setRows]=useState([])
+          <Box ml="auto">
+            <OutlinedInput
+              style={{
+                width: "200px",
+                marginRight: "24px",
+              }}
+              placeholder="Tìm kiếm"
+            />
 
-    useEffect(() => {
-      const getTypeProduct = async () => {
-        try {         
-          const { data } = await apiHelper.get("/type-product/all");
-          const temp = data.map((index,key) => (
-            {
-            id: key +1,
-            name:index.name,
-            image:index.urlImg
-          }
-          ));        
-          setRows(temp)  
-        } catch (e) {
-          console.log(e);
-        }
-      };
-      getTypeProduct();
-    }, []);
-      return (
-        <div style={{ height: 400, width: '100%' }}>
-            <Box>
-              <Box display="flex" flexWrap="wrap" mb={2}>
-                <Box mr={2}>
-                  <Typography variant="h6">
-                    <b>Danh sách loại sản phẩm</b>
-                  </Typography>
-                  <Typography variant="caption" display="block" gutterBottom>
-                  Đang có <b>{rows.length} </b>sản phẩm
-                  </Typography>
-                </Box>
+            <Button variant="contained" color="primary">
+              Thêm
+            </Button>
+            <Button variant="contained" color="primary">
+              Chỉnh sửa
+            </Button>
+            <Button variant="outlined" color="primary">
+              Xóa
+            </Button>
+          </Box>
+        </Box>
+      </Box>
 
-                <Box ml="auto">
-                  <OutlinedInput
-                    style={{
-                      width: "200px",
-                      marginRight: "24px",
-                    }}
-                    placeholder="Tìm kiếm"
-                  />
-
-                  <Button
-                    variant="contained"
-                    color="primary"
-                  >
-                    Thêm
-                  </Button>
-                  <Button variant="contained" color="primary">
-                    Chỉnh sửa
-                  </Button>
-                  <Button variant="outlined" color="primary">
-                    Xóa
-                  </Button>
-                </Box>
-              </Box>
-            </Box>
-          
-              <DataGrid
-                autoHeight
-                rows={rows}
-                columns={columns}
-                pageSize={10}
-                checkboxSelection               
-              />
-        </div>
-      );
+      <DataGrid
+        autoHeight
+        rows={rows}
+        columns={columns}
+        pageSize={10}
+        checkboxSelection
+        loading={loading}
+      />
+    </div>
+  );
 }
