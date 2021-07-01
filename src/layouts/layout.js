@@ -103,7 +103,7 @@ const menuList = [
   {
     name: "Loại sản phẩm",
     icon: <Category />,
-    path: "/product",
+    path: "/type-product",
   },
 ];
 export default function LayoutPage({ children }) {

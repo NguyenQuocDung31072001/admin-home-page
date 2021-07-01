@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import apiHelper from "../helper/apiHelper";
 import {
   Avatar,
   Box,
   Button,
+  LinearProgress,
   OutlinedInput,
   Paper,
   Typography,
 } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
+import { getAccountList } from "../helper/CallApiHelper";
 
 const images = [
   "https://i.pinimg.com/originals/eb/b0/2a/ebb02aedec9bc74f65e38311c7e14d34.png",
@@ -22,10 +23,10 @@ export default function Account() {
   const [dataList, setDataList] = useState(null);
 
   useEffect(() => {
-    const getAccountList = async () => {
+    const getData = async () => {
       try {
         setLoading(true);
-        const { data } = await apiHelper.get("/account/accounts");
+        const data = await getAccountList();
         console.log(data);
         const temp = data.map((el, index) => ({
           id: el._id,
@@ -44,7 +45,7 @@ export default function Account() {
         console.log(e);
       }
     };
-    getAccountList();
+    getData();
   }, []);
   const colUser = [
     // {
@@ -164,6 +165,7 @@ export default function Account() {
             paginationMode="server"
             checkboxSelection
             pageSize={10}
+            loading={loading}
             // onRowSelected={(param) => {
             //   setIdOrg(String(param.data.id))
             // }}
