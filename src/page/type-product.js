@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import {
   Avatar,
@@ -6,9 +6,8 @@ import {
   Button,
   Typography,
   OutlinedInput,
-  Paper,
 } from "@material-ui/core";
-import { getTypeProduct, getProduct } from "../helper/CallApiHelper";
+import { getTypeProduct} from "../helper/CallApiHelper";
 
 export default function TypeProduct(props) {
   const columns = [
@@ -54,6 +53,7 @@ export default function TypeProduct(props) {
 
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
+
   const getData = useCallback(async () => {
     setLoading(true);
     const data = await getTypeProduct();
@@ -67,16 +67,8 @@ export default function TypeProduct(props) {
     setLoading(false);
   });
   useEffect(() => {
-    // CallApi("","GET",null).then(res=>{
-    //   const data= res.data.map((index,key)=>({
-    //     id:key+1,
-    //     name:index.name,
-    //     image:index.urlImg
-    //   }))
-    //   setRows(data);
-    // });
     getData();
-    getProduct();
+    
   }, []);
   return (
     <div style={{ height: 400, width: "100%" }}>
