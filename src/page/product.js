@@ -40,7 +40,7 @@ export default function Product(props) {
     {
       field: "loaiSP",
       headerName: "Loại sản phẩm",
-      width: 400,
+      width: 300,
       renderCell: (params) => (
         <Box display="flex"  p={1} m={1}>
           
@@ -53,6 +53,22 @@ export default function Product(props) {
       </Box>
         
       ),
+    },
+    {
+      field: "brand",
+      headerName: "Thương hiệu",
+      width: 200,
+      type: "string",
+      editable: true,
+     renderCell:(params)=>(
+       <Box display="flex" p={1} m={1}>
+         <Box p={1}>
+           <Typography variant="body1">
+              <b>{params.getValue(params.id,"brand")}</b>
+           </Typography>
+         </Box>
+       </Box>
+     )
     },
   ];
 
@@ -67,7 +83,8 @@ export default function Product(props) {
       id: key + 1,
       name: index.name,
       image: index.images,
-      loaiSP: index.categories
+      loaiSP: index.categories,
+      brand:index.brand
     }));
     setRows(tmp);
     setLoading(false);
