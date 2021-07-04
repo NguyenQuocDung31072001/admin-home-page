@@ -7,9 +7,14 @@ import {
   OutlinedInput,
   Paper,
   Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle
 } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import { getAccountList } from "../helper/CallApiHelper";
+import FormAddAccount from "../formComponent/formAccount/component";
 
 const images = [
   "https://i.pinimg.com/originals/eb/b0/2a/ebb02aedec9bc74f65e38311c7e14d34.png",
@@ -19,6 +24,15 @@ const images = [
   "https://pdp.edu.vn/wp-content/uploads/2021/01/anh-avatar-dep-dai-dien-facebook-zalo.jpg",
 ];
 export default function Account() {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const [loading, setLoading] = useState(false);
   const [dataList, setDataList] = useState(null);
 
@@ -144,7 +158,7 @@ export default function Account() {
               <Button
                 variant="contained"
                 color="primary"
-                // onClick={() => setOpenAdd(true)}
+                onClick={handleClickOpen}
               >
                 Thêm
               </Button>
@@ -171,6 +185,24 @@ export default function Account() {
             // }}
           />
         </Paper>
+        <Dialog
+           open={open} 
+           onClose={handleClose} 
+           aria-labelledby="form-dialog-title"
+           disableBackdropClick	
+           disableEscapeKeyDown
+          >
+            
+            <DialogContent>
+              <FormAddAccount/>
+            </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  Cancel
+                </Button>
+                
+              </DialogActions>
+        </Dialog>
       </div>
     )
   );
