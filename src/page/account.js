@@ -10,12 +10,14 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle
+  DialogTitle,
+  makeStyles
 } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import { getAccountList } from "../helper/CallApiHelper";
-import FormAddAccount from "../formComponent/formAccount/component";
-
+import PersonAddTwoToneIcon from '@material-ui/icons/PersonAddTwoTone';
+import InputField from "../formField/account"
+import { useForm } from 'react-hook-form';
 const images = [
   "https://i.pinimg.com/originals/eb/b0/2a/ebb02aedec9bc74f65e38311c7e14d34.png",
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRanbNEeTxWMOWX_tDXccW7X7OSiDW38IoApSSKyTEqA3do2fRtM7x7e4i6I3t_Pp3X2k8&usqp=CAU",
@@ -23,7 +25,40 @@ const images = [
   "https://pdp.edu.vn/wp-content/uploads/2021/05/hinh-anh-avatar-nam-1.jpg",
   "https://pdp.edu.vn/wp-content/uploads/2021/01/anh-avatar-dep-dai-dien-facebook-zalo.jpg",
 ];
+const useStyles = makeStyles((theme) => ({
+  root: {
+      margin: theme.spacing(3,0,3,0),
+  },
+  avater:{
+      margin:'0 auto',
+      
+  },
+  title:{
+      padding: theme.spacing(5,0,3,0),
+  },
+  submit:{
+      margin: theme.spacing(5,0,0,0),
+      
+  }
+}));
+
 export default function Account() {
+  const classes=useStyles();
+  const form=useForm({
+    defaultValues:{
+        tennguoidung:'',
+        email:'',
+        sodienthoai:'',
+        diachi:'',
+    }
+  })
+  const handlerSubmit=(values)=>{
+    //setAddUser(values)
+    console.log("account ",values)
+  }
+  const [addUser,setAddUser]=useState("");
+
+
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -185,6 +220,7 @@ export default function Account() {
             // }}
           />
         </Paper>
+        {/* form dialog to add user */}
         <Dialog
            open={open} 
            onClose={handleClose} 
@@ -192,9 +228,22 @@ export default function Account() {
            disableBackdropClick	
            disableEscapeKeyDown
           >
-            
             <DialogContent>
-              <FormAddAccount/>
+              <Avatar >
+                  <PersonAddTwoToneIcon/>
+              </Avatar>
+              <Typography className={classes.title} component="h3" variant="h5">
+                  Thêm người dùng 
+              </Typography>
+              <form onSubmit={form.handleSubmit(handlerSubmit)}>
+                  <InputField  name="tennguoidung" label="Tên người dùng" form={form}/><br/>
+                  <InputField  name="email" label="Email" form={form}/><br/>
+                  <InputField  name="sodienthoai" label="Số điện thoại" form={form}/><br/>
+                  <InputField  name="diachi" label="Địa chỉ" form={form}/><br/>
+                  <Button className={classes.submit} variant="contained" type="submit" fullWidth color="primary" >
+                      Add
+                  </Button>
+              </form>
             </DialogContent>
               <DialogActions>
                 <Button onClick={handleClose} color="primary">
