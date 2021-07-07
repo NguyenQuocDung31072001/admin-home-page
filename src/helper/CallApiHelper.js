@@ -36,3 +36,11 @@ export const getDanhGia = async () => {
     return [];
   }
 };
+export const createAcc = async (dataBody) => {
+  try {
+    const { data } = await apiHelper.post("/account/create", dataBody);
+    return data;
+  } catch (error) {
+    return null;
+  }
+}
