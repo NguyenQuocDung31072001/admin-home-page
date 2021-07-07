@@ -21,11 +21,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
-const schema = yup.object().shape({
-  title1: yup.string().required(),
-  title2: yup.string().required(),
-  title3: yup.string().required(),
-});
 const images = [
   "https://i.pinimg.com/originals/eb/b0/2a/ebb02aedec9bc74f65e38311c7e14d34.png",
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRanbNEeTxWMOWX_tDXccW7X7OSiDW38IoApSSKyTEqA3do2fRtM7x7e4i6I3t_Pp3X2k8&usqp=CAU",
@@ -177,6 +172,7 @@ export default function Account() {
       disableColumnMenu: true,
       sortable: false,
     },
+    
   ];
   return (
     dataList && (

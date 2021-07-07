@@ -29,4 +29,10 @@ export const routers = [
     component: "type-product",
     private: true,
   },
+  {
+    label: "Đánh giá",
+    path: "/danhgia",
+    component: "danhgia",
+    private: true,
+  },
 ];

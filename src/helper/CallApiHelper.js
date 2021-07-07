@@ -28,3 +28,11 @@ export const getProduct = async (name = null) => {
     return [];
   }
 };
+export const getDanhGia = async () => {
+  try {
+    const { data } = await apiHelper.get("/review/all");
+    return data;
+  } catch (error) {
+    return [];
+  }
+};
