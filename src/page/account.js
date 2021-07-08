@@ -11,14 +11,14 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  makeStyles
+  makeStyles,
 } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import { getAccountList } from "../helper/CallApiHelper";
-import PersonAddTwoToneIcon from '@material-ui/icons/PersonAddTwoTone';
-import InputField from "../formField/account"
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import PersonAddTwoToneIcon from "@material-ui/icons/PersonAddTwoTone";
+import InputField from "../formField/account";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const images = [
@@ -30,39 +30,37 @@ const images = [
 ];
 const useStyles = makeStyles((theme) => ({
   root: {
-      margin: theme.spacing(3,0,3,0),
+    margin: theme.spacing(3, 0, 3, 0),
   },
-  avater:{
-      margin:'0 auto',
-      
+  avater: {
+    margin: "0 auto",
   },
-  title:{
-      padding: theme.spacing(5,0,3,0),
+  title: {
+    padding: theme.spacing(5, 0, 3, 0),
   },
-  submit:{
-      margin: theme.spacing(5,0,0,0),
-      
-  }
+  submit: {
+    margin: theme.spacing(5, 0, 0, 0),
+  },
 }));
 
 export default function Account() {
-  const classes=useStyles();
+  const classes = useStyles();
   const schema = yup.object().shape({
     tennguoidung: yup.string().required(),
     email: yup.string().required(),
     sodienthoai: yup.string().required(),
     diachi: yup.string().required(),
   });
-  const form=useForm({
-    defaultValues:{
-        tennguoidung:'',
-        email:'',
-        sodienthoai:'',
-        diachi:'',
+  const form = useForm({
+    defaultValues: {
+      tennguoidung: "",
+      email: "",
+      sodienthoai: "",
+      diachi: "",
     },
-    resolver: yupResolver(schema)
-  })
-  const handlerSubmit=(values)=>{
+    resolver: yupResolver(schema),
+  });
+  const handlerSubmit = (values) => {
     //setAddUser(values)
     
     console.log("account ",values)
@@ -173,7 +171,6 @@ export default function Account() {
       disableColumnMenu: true,
       sortable: false,
     },
-    
   ];
   return (
     dataList && (
@@ -234,35 +231,54 @@ export default function Account() {
         </Paper>
         {/* form dialog to add user */}
         <Dialog
-           open={open} 
-           onClose={handleClose} 
-           aria-labelledby="form-dialog-title"
-           disableBackdropClick	
-           disableEscapeKeyDown
-          >
-            <DialogContent>
-              <Avatar >
-                  <PersonAddTwoToneIcon/>
-              </Avatar>
-              <Typography className={classes.title} component="h3" variant="h5">
-                  Thêm người dùng 
-              </Typography>
-              <form onSubmit={form.handleSubmit(handlerSubmit)}>
-                  <InputField  name="tennguoidung" label="Tên người dùng" form={form}/><br/>
-                  <InputField  name="email" label="Email" form={form}/><br/>
-                  <InputField  name="sodienthoai" label="Số điện thoại" form={form}/><br/>
-                  <InputField  name="diachi" label="Địa chỉ" form={form}/><br/>
-                  <Button className={classes.submit} variant="contained" type="submit" fullWidth color="primary" >
-                      Add
-                  </Button>
-              </form>
-            </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose} color="primary">
-                  Cancel
-                </Button>
-                
-              </DialogActions>
+          fullWidth
+          maxWidth="sm"
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="form-dialog-title"
+          disableBackdropClick
+          disableEscapeKeyDown
+        >
+          <DialogContent>
+            <Avatar>
+              <PersonAddTwoToneIcon />
+            </Avatar>
+            <Typography className={classes.title} component="h3" variant="h5">
+              Thêm người dùng
+            </Typography>
+            <form onSubmit={form.handleSubmit(handlerSubmit)}>
+              <InputField
+                name="tennguoidung"
+                label="Tên người dùng"
+                form={form}
+              />
+              <br />
+              <InputField name="email" label="Email" form={form} />
+              <br />
+              <InputField
+                name="sodienthoai"
+                label="Số điện thoại"
+                form={form}
+              />
+              <br />
+              <InputField name="diachi" label="Địa chỉ" form={form} />
+              <br />
+              <Button
+                className={classes.submit}
+                variant="contained"
+                type="submit"
+                fullWidth
+                color="primary"
+              >
+                Add
+              </Button>
+            </form>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+          </DialogActions>
         </Dialog>
       </div>
     )
