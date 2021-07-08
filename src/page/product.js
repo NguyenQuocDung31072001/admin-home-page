@@ -13,7 +13,7 @@ export default function Product(props) {
   const columns = [
     {
       field: "name",
-      headerName: "Tên sản phẩm",
+      headerName: "Sản phẩm",
       width: 600,
       type: "string",
       editable: true,
@@ -29,7 +29,7 @@ export default function Product(props) {
                 </Box>
             
           <Box p={1}>
-            <Typography variant="body1">
+            <Typography variant="inherit">
               <b>{params.getValue(params.id,"name")}</b>
             </Typography>
           </Box>    
@@ -41,18 +41,6 @@ export default function Product(props) {
       field: "loaiSP",
       headerName: "Loại sản phẩm",
       width: 300,
-      renderCell: (params) => (
-        <Box display="flex"  p={1} m={1}>
-          
-          <Box p={1} >
-            <Typography variant="body1">
-              <b>{params.getValue(params.id,"loaiSP")[0]}</b>
-            </Typography>
-
-          </Box>
-      </Box>
-        
-      ),
     },
     {
       field: "brand",
@@ -60,15 +48,7 @@ export default function Product(props) {
       width: 200,
       type: "string",
       editable: true,
-     renderCell:(params)=>(
-       <Box display="flex" p={1} m={1}>
-         <Box p={1}>
-           <Typography variant="body1">
-              <b>{params.getValue(params.id,"brand")}</b>
-           </Typography>
-         </Box>
-       </Box>
-     )
+     
     },
   ];
 

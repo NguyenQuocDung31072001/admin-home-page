@@ -12,14 +12,15 @@ import {
   DialogContent,
   DialogTitle,
   makeStyles,
+  TextField,
 } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
-import { getAccountList } from "../helper/CallApiHelper";
+import { getAccountList,createAcc } from "../helper/CallApiHelper";
 import PersonAddTwoToneIcon from "@material-ui/icons/PersonAddTwoTone";
-import InputField from "../formField/account";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+
 
 const images = [
   "https://i.pinimg.com/originals/eb/b0/2a/ebb02aedec9bc74f65e38311c7e14d34.png",
@@ -46,26 +47,33 @@ const useStyles = makeStyles((theme) => ({
 export default function Account() {
   const classes = useStyles();
   const schema = yup.object().shape({
-    tennguoidung: yup.string().required(),
-    email: yup.string().required(),
-    sodienthoai: yup.string().required(),
-    diachi: yup.string().required(),
+    username: yup.string().required(''),
+    password:yup.string().required(''),
+    email:yup.string().required(''),
+    address:yup.string().required(''),
+    name:yup.string().required(''),
+    phone:yup.string().required(''),
   });
-  const form = useForm({
-    defaultValues: {
-      tennguoidung: "",
-      email: "",
-      sodienthoai: "",
-      diachi: "",
-    },
-    resolver: yupResolver(schema),
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(schema)
   });
-  const handlerSubmit = (values) => {
-    //setAddUser(values)
-    
-    console.log("account ",values)
+  
+  const [change,setChange]=useState(false)
+
+  const handlerSubmit = async (values) => {
+    try{
+      const data= await createAcc(values)
+      setChange(!change)
+    }catch(e){
+      console.log(e)
+    }
+
+    // setDataList(arr=>[...arr,values])
   }
-  const [addUser,setAddUser]=useState("");
 
 
   const [open, setOpen] = useState(false);
@@ -79,6 +87,32 @@ export default function Account() {
   };
   const [loading, setLoading] = useState(false);
   const [dataList, setDataList] = useState(null);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        setLoading(true);
+        const data = await getAccountList();
+        console.log(data);
+        const temp = data.map((el, index) => ({
+          id: el._id,
+          stt: index,
+          username: el.username,
+          name: el.name,
+          phone: el.phone,
+          email: el.email,
+          urlImage: images[Math.floor(Math.random() * images.length)],
+          address: el.address,
+        }));
+
+        setDataList(temp);
+        setLoading(false);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getData();
+  }, [change]);
 
   useEffect(() => {
     const getData = async () => {
@@ -220,7 +254,7 @@ export default function Account() {
             autoHeight
             rows={dataList}
             columns={colUser}
-            paginationMode="server"
+            // paginationMode="server"
             checkboxSelection
             pageSize={10}
             loading={loading}
@@ -246,23 +280,38 @@ export default function Account() {
             <Typography className={classes.title} component="h3" variant="h5">
               Thêm người dùng
             </Typography>
-            <form onSubmit={form.handleSubmit(handlerSubmit)}>
-              <InputField
-                name="tennguoidung"
-                label="Tên người dùng"
-                form={form}
-              />
-              <br />
-              <InputField name="email" label="Email" form={form} />
-              <br />
-              <InputField
-                name="sodienthoai"
-                label="Số điện thoại"
-                form={form}
-              />
-              <br />
-              <InputField name="diachi" label="Địa chỉ" form={form} />
-              <br />
+            <form onSubmit={handleSubmit(handlerSubmit)}>
+              <TextField 
+                variant="outlined"
+                label="username" 
+                {...register("username")}
+                />
+                 <TextField 
+                variant="outlined"
+                label="password" 
+                {...register("password")}
+                />
+                 <TextField 
+                variant="outlined"
+                label="email" 
+                {...register("email")}
+                />
+                 <TextField 
+                variant="outlined"
+                label="address" 
+                {...register("address")}
+                />
+                 <TextField 
+                variant="outlined"
+                label="name" 
+                {...register("name")}
+                />
+                 <TextField 
+                variant="outlined"
+                label="phone" 
+                {...register("phone")}
+                />
+              
               <Button
                 className={classes.submit}
                 variant="contained"
