@@ -6,10 +6,71 @@ import {
   Button,
   Typography,
   OutlinedInput,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  makeStyles,
 } from "@material-ui/core";
-import { getTypeProduct} from "../helper/CallApiHelper";
+import PersonAddTwoToneIcon from "@material-ui/icons/PersonAddTwoTone";
+import { getTypeProduct,createType} from "../helper/CallApiHelper";
+import { useForm } from "react-hook-form";
+// import "./styles.css";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 
+const schema = yup.object().shape({
+  name: yup.string().required(''),
+  urlImg:yup.string().required(''),
+  quantity:yup.string().required(''),
+  
+});
+const useStyles = makeStyles((theme) => ({
+  root: {
+    margin: theme.spacing(3, 0, 3, 0),
+  },
+  avater: {
+    margin: "0 auto",
+  },
+  title: {
+    padding: theme.spacing(5, 0, 3, 0),
+  },
+  submit: {
+    margin: theme.spacing(5, 0, 0, 0),
+  },
+}));
 export default function TypeProduct(props) {
+  const classes=useStyles()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(schema)
+  });
+  const [change,setChange]=useState(false)
+  const handlerSubmit = async (values) => {
+    try{
+      const data= await createType(values)
+      setChange(!change)
+    }catch(e){
+      console.log(e)
+    }
+
+    // // setDataList(arr=>[...arr,values])
+  }
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  
   const columns = [
     {
       field: "name",
@@ -58,7 +119,6 @@ export default function TypeProduct(props) {
     setLoading(true);
     const data = await getTypeProduct();
     const tmp = data.map((index, key) => ({
-      id: key + 1,
       name: index.name,
       image: index.urlImg,
       quantity: index.quantity,
@@ -69,7 +129,7 @@ export default function TypeProduct(props) {
   useEffect(() => {
     getData();
     
-  }, []);
+  }, [change]);
   return (
     <div style={{ height: 400, width: "100%" }}>
       <Box>
@@ -92,7 +152,7 @@ export default function TypeProduct(props) {
               placeholder="Tìm kiếm"
             />
 
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={handleClickOpen}>
               Thêm
             </Button>
             <Button variant="contained" color="primary">
@@ -113,6 +173,57 @@ export default function TypeProduct(props) {
         checkboxSelection
         loading={loading}
       />
+
+      <Dialog
+          fullWidth
+          maxWidth="sm"
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="form-dialog-title"
+          disableBackdropClick
+          disableEscapeKeyDown
+        >
+          <DialogContent>
+            <Avatar>
+              <PersonAddTwoToneIcon />
+            </Avatar>
+            <Typography className={classes.title} component="h3" variant="h5">
+              Thêm loại sản phẩm
+            </Typography>
+            <form onSubmit={handleSubmit(handlerSubmit)}>
+              <TextField 
+                variant="outlined"
+                label="name" 
+                {...register("name")}
+                />
+                 <TextField 
+                variant="outlined"
+                label="url image" 
+                {...register("urlImg")}
+                />
+                 <TextField 
+                variant="outlined"
+                label="quantity" 
+                {...register("quantity")}
+                />
+              
+              <Button
+                className={classes.submit}
+                variant="contained"
+                type="submit"
+                fullWidth
+                color="primary"
+              >
+                Add
+              </Button>
+            </form>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+          </DialogActions>
+        </Dialog>
     </div>
   );
 }

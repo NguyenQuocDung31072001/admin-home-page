@@ -45,3 +45,11 @@ export const createAcc = async (dataBody) => {
     return null;
   }
 }
+export const createType = async (dataBody) => {
+  try {
+    const { data } = await apiHelper.post("/type-product/create", dataBody);
+    return data;
+  } catch (error) {
+    return null;
+  }
+}
